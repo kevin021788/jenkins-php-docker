@@ -118,7 +118,7 @@ RUN apt-get clean -y
 
 # 使用supervisor管理
 RUN apt-get -y -f install supervisor
-RUN apt-get -y -f install mysql-server && mysql_secure_installation
+RUN apt-get -y -f install mysql-server
 
 COPY supervisor/supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 COPY supervisor/redis.conf /etc/supervisor/conf.d/redis.conf
