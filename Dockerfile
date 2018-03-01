@@ -109,7 +109,6 @@ RUN /home/jenkins/composer.phar config -g repo.packagist composer https://packag
 RUN /home/jenkins/composer.phar --working-dir="/home/jenkins" -n require phing/phing:2.* notfloran/phing-composer-security-checker:~1.0 \
     phploc/phploc:* phpunit/phpunit:~4.0 pdepend/pdepend:~2.0 phpmd/phpmd:~2.2 sebastian/phpcpd:* \
     squizlabs/php_codesniffer:* mayflower/php-codebrowser:~1.1 codeception/codeception:*
-#RUN echo "export PATH=$PATH:/home/jenkins/.composer/vendor/bin" >> $JENKINS_HOME/.bashrc # Keep dreaming!
 
 USER root
 RUN mkdir /home/bin
@@ -128,4 +127,4 @@ COPY supervisor/jenkins.conf /etc/supervisor/conf.d/jenkins.conf
 # Go back to jenkins user.
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
 
-USER jenkins
+USER root
