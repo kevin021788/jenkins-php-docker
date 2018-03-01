@@ -54,6 +54,11 @@ RUN pecl install swoole
 COPY ext-phalcon.ini /etc/php/7.0/mods-available/
 COPY ext-swoole.ini /etc/php/7.0/mods-available/
 
+RUN ln -s /etc/php/7.0/mods-available/ext-phalcon.ini /etc/php/7.0/cli/conf.d/ext-phalcon.ini && \
+  ln -s /etc/php/7.0/mods-available/ext-swoole.ini /etc/php/7.0/cli/conf.d/ext-swoole.ini && \
+  ln -s /etc/php/7.0/mods-available/ext-phalcon.ini /etc/php/7.0/fpm/conf.d/ext-phalcon.ini && \
+  ln -s /etc/php/7.0/mods-available/ext-swoole.ini /etc/php/7.0/fpm/conf.d/ext-swoole.ini
+
 RUN php -m
 
 # Add all to the war file.
