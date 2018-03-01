@@ -16,6 +16,7 @@ Saddly you just can't run the docker image and start working. You need to clone 
 - Or you can just copy the files from the [repo]
 - - Give `rwx` rights for the `jenkins` user in that folder
 - Run the image `docker run -d -P -v /var/docker/jenkins-php-docker:/var/jenkins_home:rw naxhh/jenkins-php-docker`
+- Run the image `docker run --restart unless-stopped -p 8080:8080 -p 50000:50000 --name jenkins -e "PATH=/home/jenkins/vendor/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" -d limingxinleo/jenkins-php-docker`
 
 Docker exposes the port `8080` so just go to `http://<yourip>:8080`
 
