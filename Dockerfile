@@ -35,7 +35,7 @@ RUN curl -L https://updates.jenkins-ci.org/latest/docker-build-publish.hpi -o /t
 RUN apt-get update
 
 # Install php packages.
-RUN apt-get -y -f install zip libpcre3-dev gcc make re2c vim zsh
+RUN apt-get -y -f install zip libpcre3-dev gcc make re2c vim zsh redis-server
 
 RUN apt-get -y -f install php7.0 php7.0-cgi php7.0-cli php7.0-common php7.0-curl php7.0-dev \
 php7.0-gd php7.0-json php7.0-ldap php7.0-mysql php7.0-odbc php7.0-opcache \
@@ -116,5 +116,16 @@ RUN mkdir /home/bin
 RUN cp /home/jenkins/composer.phar /home/jenkins/vendor/bin/composer
 RUN apt-get clean -y
 
+# 使用supervisor管理
+RUN apt-get -y -f install supervisor
+RUN apt-get -y -f install mysql-server && mysql_secure_installation
+
+COPY supervisor/supervisor.conf /etc/supervisor/conf.d/supervisor.conf
+COPY supervisor/redis.conf /etc/supervisor/conf.d/redis.conf
+COPY supervisor/mysql.conf /etc/supervisor/conf.d/mysql.conf
+COPY supervisor/jenkins.conf /etc/supervisor/conf.d/jenkins.conf
+
 # Go back to jenkins user.
+ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+
 USER jenkins
