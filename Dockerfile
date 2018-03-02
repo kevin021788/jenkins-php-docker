@@ -92,15 +92,6 @@ RUN apt-get -y -f install docker
 RUN mkdir /home/jenkins
 RUN chown jenkins:jenkins /home/jenkins
 
-USER jenkins
-
-#### This don't work as $JENKINS_HOME is a volume ####
-# Install php template.
-#RUN mkdir "$JENKINS_HOME/jobs/php-template"
-#RUN curl -L https://raw.github.com/sebastianbergmann/php-jenkins-template/master/config.xml -o "$JENKINS_HOME/jobs/php-template/config.xml"
-####                sad panda is sad              ####
-
-
 # Install composer, yes we can't install it in $JENKINS_HOME :(
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/home/jenkins
 RUN /home/jenkins/composer.phar config -g repo.packagist composer https://packagist.laravel-china.org
@@ -110,7 +101,6 @@ RUN /home/jenkins/composer.phar --working-dir="/home/jenkins" -n require phing/p
     phploc/phploc:* phpunit/phpunit:~4.0 pdepend/pdepend:~2.0 phpmd/phpmd:~2.2 sebastian/phpcpd:* \
     squizlabs/php_codesniffer:* mayflower/php-codebrowser:~1.1 codeception/codeception:*
 
-USER root
 RUN mkdir /home/bin
 RUN cp /home/jenkins/composer.phar /home/jenkins/vendor/bin/composer
 RUN apt-get clean -y
@@ -123,5 +113,3 @@ COPY supervisor/jenkins.conf /etc/supervisor/conf.d/jenkins.conf
 
 # Go back to jenkins user.
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
-
-USER root
