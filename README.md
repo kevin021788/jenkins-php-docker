@@ -47,3 +47,8 @@ Common problems or errors
 [jenkins-php]:http://jenkins-php.org/integration.html
 [Money]:https://github.com/sebastianbergmann/money
 [repo]:https://github.com/naxhh/jenkins-php-docker.git
+
+生成id_rsa
+ssh-keygen -t rsa -C 'jenkins' -f /var/jenkins_home/.ssh/id_rsa -P ''
+进入宿主机
+ssh -i /var/jenkins_home/.ssh/id_rsa root@172.17.0.1
