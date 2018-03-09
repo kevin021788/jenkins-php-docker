@@ -109,6 +109,7 @@ COPY supervisor/redis.conf /etc/supervisor/conf.d/redis.conf
 COPY supervisor/mysql.conf /etc/supervisor/conf.d/mysql.conf
 COPY supervisor/jenkins.conf /etc/supervisor/conf.d/jenkins.conf
 
+RUN mkdir -p /var/jenkins_home/.ssh/
 RUN ssh-keygen -t rsa -C 'jenkins' -q -f /var/jenkins_home/.ssh/id_rsa -P ''
 
 # 进入宿主机使用
