@@ -99,8 +99,8 @@ RUN /home/jenkins/composer.phar config -g repo.packagist composer https://packag
 # Install required php tools.
 RUN /home/jenkins/composer.phar --working-dir="/home/jenkins" -n
 
-RUN mkdir /home/bin
-RUN cp /home/jenkins/composer.phar /home/jenkins/vendor/bin/composer
+RUN mkdir /home/jenkins/vendor/bin/
+RUN cp -rf /home/jenkins/composer.phar /home/jenkins/vendor/bin/composer
 RUN apt-get clean -y
 
 # 使用supervisor管理
