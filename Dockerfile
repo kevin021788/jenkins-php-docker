@@ -99,7 +99,7 @@ RUN /home/jenkins/composer.phar config -g repo.packagist composer https://packag
 # Install required php tools.
 RUN /home/jenkins/composer.phar --working-dir="/home/jenkins" -n
 
-RUN mkdir /home/jenkins/vendor/bin/
+RUN mkdir -p /home/jenkins/vendor/bin/
 RUN cp -rf /home/jenkins/composer.phar /home/jenkins/vendor/bin/composer
 RUN apt-get clean -y
 
@@ -114,5 +114,5 @@ RUN ssh-keygen -t rsa -C 'jenkins' -q -f /var/jenkins_home/.ssh/id_rsa -P ''
 # 进入宿主机使用
 # ssh root@172.17.0.1 -i /var/jenkins_home/.ssh/id_rsa
 
-# Go back to jenkins user.
+# 启动supervisor
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
