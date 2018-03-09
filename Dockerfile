@@ -97,9 +97,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/home/jenk
 RUN /home/jenkins/composer.phar config -g repo.packagist composer https://packagist.laravel-china.org
 
 # Install required php tools.
-RUN /home/jenkins/composer.phar --working-dir="/home/jenkins" -n require phing/phing:2.* notfloran/phing-composer-security-checker:~1.0 \
-    phploc/phploc:* phpunit/phpunit:~4.0 pdepend/pdepend:~2.0 phpmd/phpmd:~2.2 sebastian/phpcpd:* \
-    squizlabs/php_codesniffer:* mayflower/php-codebrowser:~1.1 codeception/codeception:*
+RUN /home/jenkins/composer.phar --working-dir="/home/jenkins" -n
 
 RUN mkdir /home/bin
 RUN cp /home/jenkins/composer.phar /home/jenkins/vendor/bin/composer
