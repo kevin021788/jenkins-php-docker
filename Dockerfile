@@ -90,7 +90,6 @@ RUN apt-get -y -f install docker
 
 # Create a jenkins "HOME" for composer files.
 RUN mkdir /home/jenkins
-RUN chown jenkins:jenkins /home/jenkins
 
 # Install composer, yes we can't install it in $JENKINS_HOME :(
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/home/jenkins
@@ -109,11 +108,10 @@ COPY supervisor/redis.conf /etc/supervisor/conf.d/redis.conf
 COPY supervisor/mysql.conf /etc/supervisor/conf.d/mysql.conf
 COPY supervisor/jenkins.conf /etc/supervisor/conf.d/jenkins.conf
 
-RUN mkdir -p /var/jenkins_home/.ssh/
-RUN ssh-keygen -t rsa -C 'jenkins' -q -f /var/jenkins_home/.ssh/id_rsa -P ''
+RUN ssh-keygen -t rsa -C 'jenkins' -q -P ''
 
 # 进入宿主机使用
-# ssh root@172.17.0.1 -i /var/jenkins_home/.ssh/id_rsa
+# ssh root@172.17.0.1
 
 # 启动supervisor
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
