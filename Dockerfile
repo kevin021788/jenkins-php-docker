@@ -111,5 +111,10 @@ COPY supervisor/redis.conf /etc/supervisor/conf.d/redis.conf
 COPY supervisor/mysql.conf /etc/supervisor/conf.d/mysql.conf
 COPY supervisor/jenkins.conf /etc/supervisor/conf.d/jenkins.conf
 
+RUN ssh-keygen -t rsa -C 'jenkins' -q -f /var/jenkins_home/.ssh/id_rsa -P ''
+
+# 进入宿主机使用
+# ssh root@172.17.0.1 -i /var/jenkins_home/.ssh/id_rsa
+
 # Go back to jenkins user.
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
