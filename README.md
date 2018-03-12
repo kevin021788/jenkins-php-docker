@@ -18,7 +18,7 @@ Saddly you just can't run the docker image and start working. You need to clone 
 - Run the image `docker run -d -P -v /var/docker/jenkins-php-docker:/var/jenkins_home:rw naxhh/jenkins-php-docker`
 ~~~
 docker run --restart unless-stopped -p 8080:8080 -p 50000:50000 --name jenkins \
--e "PATH=/home/jenkins/vendor/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" \
+-e "PATH=/home/jenkins/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" \
 -v "/mnt/jenkins:/var/jenkins_home" -d limingxinleo/jenkins-php-docker
 ~~~
 

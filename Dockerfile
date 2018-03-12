@@ -89,17 +89,12 @@ RUN cd /tmp; \
 RUN apt-get -y -f install docker
 
 # Create a jenkins "HOME" for composer files.
-RUN mkdir /home/jenkins
+RUN mkdir -p /home/jenkins/bin
 
 # Install composer, yes we can't install it in $JENKINS_HOME :(
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/home/jenkins
 RUN /home/jenkins/composer.phar config -g repo.packagist composer https://packagist.laravel-china.org
-
-# Install required php tools.
-RUN /home/jenkins/composer.phar --working-dir="/home/jenkins" -n
-
-RUN mkdir -p /home/jenkins/vendor/bin/
-RUN cp -rf /home/jenkins/composer.phar /home/jenkins/vendor/bin/composer
+RUN cp -rf /home/jenkins/composer.phar /home/jenkins/bin/composer
 RUN apt-get clean -y
 
 # 使用supervisor管理
