@@ -11,7 +11,8 @@ ln -sf /home/jenkins/nodejs/${version}/bin/npm /home/jenkins/bin/npm
 
 echo checking nodejs:
 /home/jenkins/bin/node -v
-echo checking npm:
-/home/jenkins/bin/npm -v
+
+#echo checking npm:
+#/home/jenkins/bin/npm -v
 # 设置镜像源
-/home/jenkins/bin/npm config set registry=http://registry.npm.taobao.org
+#/home/jenkins/bin/npm config set registry=http://registry.npm.taobao.org

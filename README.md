@@ -52,3 +52,6 @@ Common problems or errors
 ssh-keygen -t rsa -C 'jenkins' -f /var/jenkins_home/.ssh/id_rsa -P ''
 进入宿主机
 ssh -i /var/jenkins_home/.ssh/id_rsa root@172.17.0.1
+
+Node 更换淘宝源
+npm config set registry=http://registry.npm.taobao.org
