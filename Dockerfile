@@ -103,8 +103,9 @@ COPY supervisor/redis.conf /etc/supervisor/conf.d/redis.conf
 COPY supervisor/mysql.conf /etc/supervisor/conf.d/mysql.conf
 COPY supervisor/jenkins.conf /etc/supervisor/conf.d/jenkins.conf
 
-# 进入宿主机使用
-# ssh root@172.17.0.1 -i /var/jenkins_home/.ssh/id_rsa
+# 安装node
+COPY shell/node.install.sh /home/jenkins/node.install.sh
+RUN cd /home/jenkins && chmod u+x node.install.sh && sh node.install.sh
 
 # 启动supervisor
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
