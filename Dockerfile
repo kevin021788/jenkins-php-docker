@@ -105,7 +105,7 @@ COPY supervisor/jenkins.conf /etc/supervisor/conf.d/jenkins.conf
 
 # 安装node
 COPY shell/node.install.sh /home/jenkins/node.install.sh
-RUN cd /home/jenkins && chmod u+x node.install.sh && sh node.install.sh
+RUN cd /home/jenkins && chmod u+x node.install.sh && ./node.install.sh
 
 # 启动supervisor
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
