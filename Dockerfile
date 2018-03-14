@@ -103,7 +103,7 @@ COPY supervisor/redis.conf /etc/supervisor/conf.d/redis.conf
 COPY supervisor/mysql.conf /etc/supervisor/conf.d/mysql.conf
 COPY supervisor/jenkins.conf /etc/supervisor/conf.d/jenkins.conf
 
-# 安装node
+# 安装nodejs
 COPY shell/node.install.sh /home/jenkins/node.install.sh
 RUN cd /home/jenkins && chmod u+x node.install.sh && ./node.install.sh
 
