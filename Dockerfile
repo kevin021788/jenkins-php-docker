@@ -89,7 +89,8 @@ RUN cd /tmp; \
 RUN apt-get -y -f install docker
 
 # Create a jenkins "HOME" for composer files.
-RUN mkdir -p /home/jenkins/bin
+RUN mkdir -p /home/jenkins/bin && \
+    mkdir -p /home/jenkins/install
 
 # Install composer, yes we can't install it in $JENKINS_HOME :(
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/home/jenkins
@@ -103,11 +104,13 @@ COPY supervisor/redis.conf /etc/supervisor/conf.d/redis.conf
 COPY supervisor/mysql.conf /etc/supervisor/conf.d/mysql.conf
 COPY supervisor/jenkins.conf /etc/supervisor/conf.d/jenkins.conf
 
-# 安装nodejs
-COPY shell/node.install.sh /home/jenkins/node.install.sh
-RUN cd /home/jenkins && \
-    chmod u+x node.install.sh && \
-    ./node.install.sh
+# 安装Oh my zsh
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+# 复制nodejs安装脚本
+COPY shell/node.install.sh /home/jenkins/install/node.install.sh
+RUN wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh && \
+    mv install.sh /home/jenkins/install/zsh.sh
 
 # 启动supervisor
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
