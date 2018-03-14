@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 version='8.10.0'
-wget https://npm.taobao.org/mirrors/node/v${version}/node-v${version}-linux-x64.tar.gz
+wget https://nodejs.org/dist/v${version}/node-v${version}-linux-x64.tar.gz
 tar xzf node-v${version}-linux-x64.tar.gz
 
 mkdir -p /home/jenkins/nodejs/${version}
